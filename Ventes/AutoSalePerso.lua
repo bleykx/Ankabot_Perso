@@ -21,11 +21,6 @@
 -- Vous devez impérativement renseigner tout les ID des items que vous souhaitez vendre dans la variable "Whitelist" ci dessous
 -- Vous devez aussi renseigner vos chemins, plusieurs ID de map / cellule / npc ainsi que les MDP des vos coffres et portes de maison
 
--- Choix du coffre à utiliser pour la maison (passer en "true" le coffre voulu)
-CoffreUn = false;
-CoffreDeux = true;
-CoffreTrois = false;
-
 -- Whitelist des items qui seront mis en vente
 Whitelist = {
     423, --Lin
@@ -117,6 +112,23 @@ MDPCoffreMaison = "91234486";
 
 -- CONFIG CHEMINS
 
+local Chemins = {
+
+    ["CheminHDVRessource"] = {
+        {map = "54532106", path = "havenbag" },
+        {map = "54172457", path="bottom"},
+        {map = "162791424", path = "zaap(54172969)"},
+        {map = "54172969", path = "bottom" },
+        {map = "54172968", path = "right" },
+    
+        -- Ne pas modifier ou supprimer cette ligne
+        {map = IdMapInterieurMaison , path = IdCellulePorteInterieurMaison}, -- Sort de la Maison
+        {map = IdMapHDVRessource, custom = OuvreHDV }, -- Ouvre l'HDV
+        {map = "54172456", custom = OuvreHDV}
+    },
+
+}
+
 -- Chemin pour l'HDV Ressource
 CheminHDVRessource = {
     {map = "54532106", path = "havenbag" },
@@ -173,7 +185,7 @@ MIN_MONSTERS = 1
 MAX_MONSTERS = 8
 
 function VersMaisonFrigost()
-    if map:currentMapId(54172969) then -- map du zaap frigost
+    if map:currentMapId() == 54172969 then -- map du zaap frigost
         global:printMessage("J'utilise le zaapi pour me raprocher de la maison ...")
         map:changeMap("zaapi(54173486)")
         global:printMessage("Je suis à l'atelier chasseur ...")
@@ -206,7 +218,6 @@ function move()
             -- Ne pas modifier ou supprimer cette ligne
             {map = IdMapInterieurMaison , path = IdCellulePorteInterieurMaison}, -- Sort de la Maison
             {map = IdMapHDVRessource, custom = OuvreHDV }, -- Ouvre l'HDV
-            {map = "54172456", custom = OuvreHDV}
         }
     end
 
@@ -374,7 +385,7 @@ function GetSalesDatas()
         HDVFull = true;
     end
 
-    PrintTable();
+    PrintHDV();
 end
 
 function OuvreHDV()
@@ -456,42 +467,13 @@ end
 function Maison()
     local whitelistFull = true;
     local missingItem = true;
-
---------- FONCTION POUR COFFRE 1 ---------
-    if CoffreUn then -- Je suis au RDC
-        global:printMessage("J'utilise le Coffre numéro : [1]")
-        map:lockedStorage(275,91234486)
-        global:delay(1000)
-        exchange:putAllItems()
-        --map:moveToCell(386)
+    if map:currentMapId() == IdMapCoffre then
+            global:printMessage("J'utilise le Coffre de la maison.");
+            map:lockedStorage(IdCelluleCoffreMaison,MDPCoffreMaison);
+            global:delay(1000);
+            exchange:putAllItems();
+            global:delay(1000);
     end
-    --------- FONCTION POUR COFFRE 2 ---------
-    if CoffreDeux then -- Je suis au RDC
-        if map:currentMapId() == IdMapCoffre then -- Je suis etage : 1
-                global:printMessage("J'utilise le Coffre numéro : [2]")
-                map:lockedStorage(IdCelluleCoffreMaison,MDPCoffreMaison)
-                global:delay(1000)
-                exchange:putAllItems()
-                global:delay(1000)
-        end
-    end
-    --------- FONCTION POUR COFFRE "3" ---------
-    if CoffreTrois then -- Je suis au RDC
-        if map:currentMapId() == 54534154  then -- Je suis etage : 2
-            global:printMessage("J'utilise le Coffre numéro : [3]")
-            map:lockedStorage(286,91234486)
-            global:delay(1000)
-            exchange:putAllItems()
-            global:delay(1000)
-            -- map:useById(456285,-1)
-        end
-    end
-
-
-    -- map:lockedStorage( IdCelluleCoffreMaison, MDPCoffreMaison)
-    -- global:printSuccess("[Info] L'échange est lancé.");
-    -- exchange:putAllItems();
-    -- global:printMessage("[Info] Vous avez transféré toutes vos ressource.");
 
     --Vérifie les conditions de pauses
     EmptyCoffre = true
@@ -532,17 +514,13 @@ function Maison()
         global:printColor("#FF33F6","[Pause] Pause terminée")
         NeedABreak = false;
         UpdateNeeded = true;
-        --map:moveToCell(388);
     end
 
     GoCoffre = false;
     GoHDVRessource = true;
     global:printColor("#F04C00","[Mouvement] Je vais à l'HDV ressource")
     
-    map:useById(456289,-1)
-
-    --map:moveToCell(388);
-	
+    map:useById(456289,-1)	
 end
 
 -- Gère le récap des objets mis en vente
@@ -672,60 +650,60 @@ function PrintTable()
 	global:printMessage("---------------------------------------------------------------");
 end
 
-function PrintHDV(list)
+function PrintHDV(ItemSelling)
     local maxLengthItemID = 0
     local maxLengthItemName = 0
     local maxLengthPrice = 0
     local maxLengthMinPrice = 0
     local maxLengthNbLot = 0
 
-    local color = ""
-
-    for i = 1, #list do
-        if string.len(list[i].itemID) > maxLengthItemID then
-            maxLengthItemID = string.len(list[i].itemID)
+    for i = 1, #ItemSelling do
+        if string.len(ItemSelling[i].itemID) > maxLengthItemID then
+            maxLengthItemID = string.len(ItemSelling[i].itemID)
             if maxLengthItemID < string.len("Item ID") then
                 maxLengthItemID = string.len("Item ID")
             end
         end
-        if string.len(list[i].itemName) > maxLengthItemName then
-            maxLengthItemName = string.len(list[i].itemName)
+        if string.len(ItemSelling[i].itemName) > maxLengthItemName then
+            maxLengthItemName = string.len(ItemSelling[i].itemName)
             if maxLengthItemName < string.len("Item Name") then
                 maxLengthItemName = string.len("Item Name")
             end
         end
-        if string.len(list[i].price) > maxLengthPrice then
-            maxLengthPrice = string.len(list[i].price)
+        if string.len(ItemSelling[i].price) > maxLengthPrice then
+            maxLengthPrice = string.len(ItemSelling[i].price)
             if maxLengthPrice < string.len("Price") then
                 maxLengthPrice = string.len("Price")
             end
         end
-        if string.len(list[i].minPrice) > maxLengthMinPrice then
-            maxLengthMinPrice = string.len(list[i].minPrice)
+        if string.len(ItemSelling[i].minPrice) > maxLengthMinPrice then
+            maxLengthMinPrice = string.len(ItemSelling[i].minPrice)
             if maxLengthMinPrice < string.len("Min Price") then
                 maxLengthMinPrice = string.len("Min Price")
             end
         end
-        if string.len(list[i].nbLot) > maxLengthNbLot then
-            maxLengthNbLot = string.len(list[i].nbLot)
+        if string.len(ItemSelling[i].nbLot) > maxLengthNbLot then
+            maxLengthNbLot = string.len(ItemSelling[i].nbLot)
             if maxLengthNbLot < string.len("Nb Lot") then
                 maxLengthNbLot = string.len("Nb Lot")
             end
         end
     end
 
-    print("Item ID" .. string.rep(" ", maxLengthItemID - string.len("Item ID")) .. "\t" ..
+    local color = {"#28FF06","#27EF08"}
+
+    global:printColor(color[0],"Item ID" .. string.rep(" ", maxLengthItemID - string.len("Item ID")) .. "\t" ..
         "Item Name" .. string.rep(" ", maxLengthItemName - string.len("Item Name")) .. "\t" ..
         "Price" .. string.rep(" ", maxLengthPrice - string.len("Price")) .. "\t" ..
         "Min Price" .. string.rep(" ", maxLengthMinPrice - string.len("Min Price")) .. "\t" ..
         "Nb Lot".. string.rep(" ", maxLengthMinPrice - string.len("Nb Lot")))
 
-    for i = 1, #list do
-        print(list[i].itemID .. string.rep(" ", maxLengthItemID - string.len(list[i].itemID)) .. "\t" ..
-            list[i].itemName .. string.rep(" ", maxLengthItemName - string.len(list[i].itemName)) .. "\t" ..
-            list[i].price .. string.rep(" ", maxLengthPrice - string.len(list[i].price)) .. "\t" ..
-            list[i].minPrice .. string.rep(" ", maxLengthMinPrice - string.len(list[i].minPrice)) .. "\t" ..
-            list[i].nbLot .. string.rep(" ", maxLengthNbLot - string.len(list[i].nbLot)))
+    for i = 1, #ItemSelling do
+        global:printColor(color[i%2],ItemSelling[i].itemID .. string.rep(" ", maxLengthItemID - string.len(ItemSelling[i].itemID)) .. "\t" ..
+            ItemSelling[i].itemName .. string.rep(" ", maxLengthItemName - string.len(ItemSelling[i].itemName)) .. "\t" ..
+            ItemSelling[i].price .. string.rep(" ", maxLengthPrice - string.len(ItemSelling[i].price)) .. "\t" ..
+            ItemSelling[i].minPrice .. string.rep(" ", maxLengthMinPrice - string.len(ItemSelling[i].minPrice)) .. "\t" ..
+            ItemSelling[i].nbLot .. string.rep(" ", maxLengthNbLot - string.len(ItemSelling[i].nbLot)))
     end
 end
 
