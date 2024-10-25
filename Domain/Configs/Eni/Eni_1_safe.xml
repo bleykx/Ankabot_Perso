@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configform xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Script>D:\ANKA\AnkaBotPC\CONFIG TRAJETS\COMBATS\BANQUE [1 a 8][ASTRUB] Farm piou astrub.lua</Script>
+  <Placement>1</Placement>
+  <SpeedFightType>0</SpeedFightType>
+  <Regen>49</Regen>
+  <RegenTeam>false</RegenTeam>
+  <Flood />
+  <FloodActivate>false</FloodActivate>
+  <Commerce>false</Commerce>
+  <Recrutement>false</Recrutement>
+  <ConnexionAuto>true</ConnexionAuto>
+  <takeMerchant>false</takeMerchant>
+  <notifyArchi>false</notifyArchi>
+  <shortestPath>false</shortestPath>
+  <customPlanning>false</customPlanning>
+  <Sucess>true</Sucess>
+  <StatuPrivate>true</StatuPrivate>
+  <AntiAgro>false</AntiAgro>
+  <BankReturn>95</BankReturn>
+  <ExchangeHost />
+  <ExchangeActivate>false</ExchangeActivate>
+  <mapWaitMin>500</mapWaitMin>
+  <mapWaitMax>1500</mapWaitMax>
+  <RegenAutoIDActivate>false</RegenAutoIDActivate>
+  <ToggleActivate>true</ToggleActivate>
+  <LogsActivate>false</LogsActivate>
+  <FloodSameCharacter>false</FloodSameCharacter>
+  <FloodMapEnter>false</FloodMapEnter>
+  <SpellConfig>
+    <Spell>
+      <Id>0</Id>
+      <SpellId>25871</SpellId>
+      <Name>Lamentations</Name>
+      <Target>Enemy</Target>
+      <Turns>1</Turns>
+      <Relaunch>2</Relaunch>
+      <LastTurn>2</LastTurn>
+      <IsHandToHand>false</IsHandToHand>
+      <TouchMonster>false</TouchMonster>
+      <TargetLife>100</TargetLife>
+    </Spell>
+    <Spell>
+      <Id>1</Id>
+      <SpellId>25870</SpellId>
+      <Name>Mot Vampirique</Name>
+      <Target>Enemy</Target>
+      <Turns>1</Turns>
+      <Relaunch>3</Relaunch>
+      <LastTurn>1</LastTurn>
+      <IsHandToHand>false</IsHandToHand>
+      <TouchMonster>false</TouchMonster>
+      <TargetLife>100</TargetLife>
+    </Spell>
+    <Spell>
+      <Id>2</Id>
+      <SpellId>25858</SpellId>
+      <Name>Mot Tapageur</Name>
+      <Target>Enemy</Target>
+      <Turns>1</Turns>
+      <Relaunch>3</Relaunch>
+      <LastTurn>4</LastTurn>
+      <IsHandToHand>false</IsHandToHand>
+      <TouchMonster>false</TouchMonster>
+      <TargetLife>100</TargetLife>
+    </Spell>
+    <Spell>
+      <Id>3</Id>
+      <SpellId>25744</SpellId>
+      <Name>Mot Vivifiant</Name>
+      <Target>Self</Target>
+      <Turns>5</Turns>
+      <Relaunch>1</Relaunch>
+      <LastTurn>1</LastTurn>
+      <IsHandToHand>false</IsHandToHand>
+      <TouchMonster>false</TouchMonster>
+      <TargetLife>100</TargetLife>
+    </Spell>
+    <Spell>
+      <Id>4</Id>
+      <SpellId>25742</SpellId>
+      <Name>Mot Stimulant</Name>
+      <Target>Ally</Target>
+      <Turns>2</Turns>
+      <Relaunch>1</Relaunch>
+      <LastTurn>3</LastTurn>
+      <IsHandToHand>false</IsHandToHand>
+      <TouchMonster>false</TouchMonster>
+      <TargetLife>100</TargetLife>
+    </Spell>
+    <Spell>
+      <Id>5</Id>
+      <SpellId>25795</SpellId>
+      <Name>Mot d'Amitié</Name>
+      <Target>SelfAdjacent</Target>
+      <Turns>5</Turns>
+      <Relaunch>1</Relaunch>
+      <LastTurn>1</LastTurn>
+      <IsHandToHand>false</IsHandToHand>
+      <TouchMonster>false</TouchMonster>
+      <TargetLife>100</TargetLife>
+    </Spell>
+  </SpellConfig>
+  <statsConfig>
+    <ArrayOfInt>
+      <int>13</int>
+      <int>0</int>
+    </ArrayOfInt>
+  </statsConfig>
+  <planning>
+    <ArrayOfInt />
+    <ArrayOfInt />
+    <ArrayOfInt />
+    <ArrayOfInt />
+    <ArrayOfInt />
+    <ArrayOfInt />
+    <ArrayOfInt />
+  </planning>
+  <modoDisco>20</modoDisco>
+  <modoReco>1800</modoReco>
+  <antiModo>false</antiModo>
+  <turnDurationMin>0</turnDurationMin>
+  <turnDurationMax>0</turnDurationMax>
+  <speedDurationMin>0</speedDurationMin>
+  <speedDurationMax>0</speedDurationMax>
+  <positionDelayMin>300</positionDelayMin>
+  <positionDelayMax>500</positionDelayMax>
+  <muleJoinDelayMin>300</muleJoinDelayMin>
+  <muleJoinDelayMax>500</muleJoinDelayMax>
+  <readyDelayMin>1</readyDelayMin>
+  <readyDelayMax>300</readyDelayMax>
+  <moveSpeedPercent>100</moveSpeedPercent>
+  <playTurnAfterMin>0</playTurnAfterMin>
+  <playTurnAfterMax>0</playTurnAfterMax>
+  <Tactic>HandToHand</Tactic>
+  <FarCells>3</FarCells>
+</Configform>
