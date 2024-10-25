@@ -1272,10 +1272,13 @@ function ProcessBank()
                 global:printSuccess("[Info] Quantités à retirer de [Frene] : " .. CraftQuantity * 10 .. "")
                 global:printSuccess("[Info] Quantités à retirer de [Chatainier] : " .. CraftQuantity * 10 .. "")
 
-                exchange:getItem(303, CraftQuantity * 10)
-                global:delay(2647)
-                exchange:getItem(473, CraftQuantity * 10)
-                NeedToCraft = true
+                if (CraftQuantity > 0) then
+                    exchange:getItem(303, CraftQuantity * 10)
+                    global:delay(2647)
+                    exchange:getItem(473, CraftQuantity * 10)
+                    NeedToCraft = true
+                end
+
             end
         else
             global:printSuccess("[Info] Vous n'avez pas encore atteint le niveau de Bucheron nécessaire à la fabrication de [Planche Contreplaquée] !")

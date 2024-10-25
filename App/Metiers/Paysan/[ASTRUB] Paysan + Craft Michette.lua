@@ -1431,9 +1431,11 @@ function ProcessBank()
                 global:printSuccess("[Info] Possibilité de création de " .. CraftQuantity .. "x [Michette]")
                 global:printSuccess("[Info] Quantités à retirer de [Blé] : " .. CraftQuantity * 5 .. "")
 
-                exchange:getItem(289, CraftQuantity * 5)
-                global:delay(2647)
-                NeedToCraft = true
+                if (CraftQuantity > 0) then
+                    exchange:getItem(289, CraftQuantity * 5)
+                    global:delay(2647)
+                    NeedToCraft = true
+                end
             end
         else
             global:printSuccess("[Info] Vous n'avez pas encore atteint le niveau de Paysan nécessaire à la fabrication de [Michette] !")

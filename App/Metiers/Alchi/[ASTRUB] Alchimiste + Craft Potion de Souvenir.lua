@@ -1289,10 +1289,12 @@ function ProcessBank()
                 global:printSuccess("[Info] Quantités à retirer de [Ortie] : " .. CraftQuantity * 20 .. "")
                 global:printSuccess("[Info] Quantités à retirer de [Sauge] : " .. CraftQuantity * 10 .. "")
 
-                exchange:getItem(421, CraftQuantity * 20)
-                global:delay(2647)
-                exchange:getItem(428, CraftQuantity * 10)
-                NeedToCraft = true
+                if (CraftQuantity > 0) then
+                    exchange:getItem(421, CraftQuantity * 20)
+                    global:delay(2647)
+                    exchange:getItem(428, CraftQuantity * 10)
+                    NeedToCraft = true
+                end
             end
         else
             global:printSuccess("[Info] Vous n'avez pas encore atteint le niveau d'Alchimiste nécessaire à la fabrication de [Potion de Souvenir] !")
