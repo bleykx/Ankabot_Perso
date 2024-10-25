@@ -1420,7 +1420,7 @@ function ProcessBank()
 
                 local podsAvailable = (inventory:podsMax() - inventory:pods())
 
-                local quantiteMaxBleAPrendre = podsAvailable
+                local quantiteMaxBleAPrendre = podsAvailable / 2
                 
                 CraftQuantity = math.floor(quantiteMaxBleAPrendre / 5)
                 
