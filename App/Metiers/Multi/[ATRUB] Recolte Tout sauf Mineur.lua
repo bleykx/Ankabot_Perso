@@ -27,12 +27,6 @@ local path = nil
 local lastPath = nil
 
 function move()
-    if(path == nil and map:currentMap() ~= "4, -19") then
-        path = PathManager:ReturnAstrub()
-    end
-    if (map:currentArea() == "Incarnam") then
-        return PathManager:IncarnamToAstrub()
-    end
     if (map:currentMap() == "4, -19" or path == nil) then
         lastPath = path
         path = GatherPathManager:GetRandomAstrubGatherAllPath()
@@ -46,6 +40,9 @@ function move()
 end
 
 function bank()
+    if (map:currentArea() == "Incarnam") then
+        PathManager:IncarnamToAstrub()
+    end
     if(map:currentMapId() == BankMapId) then
         FarmerBotBankManager:PoseInventory()
         global:printMessage("[Bank] Je vais sortir de la banque")

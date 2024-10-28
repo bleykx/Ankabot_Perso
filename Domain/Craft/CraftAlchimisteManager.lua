@@ -26,3 +26,40 @@ function CraftAlchimisteManager:CraftPotionSouvenirAstrub(craftQuantity)
     global:printColor(Info, "[Information] : Craft de " .. craftQuantity .. " potions souvenir effectué.")
     map:moveToCell(396)
 end
+
+function CraftAlchimisteManager:CheckQuantityForPotionSouvenirInInventory()
+    local NbOrtie = inventory:itemCount(421)
+    local NbSauge = inventory:itemCount(428)
+    local quantityToCraft = 0
+    local quantityPerOrtie = math.floor(NbOrtie / 20)
+    local quantityPerSauge = math.floor(NbSauge / 10)
+
+    if quantityPerOrtie >= 1 & quantityPerSauge >= 1 then
+        local lowestQuantity = math.min(quantityPerOrtie, quantityPerSauge)
+        quantityToCraft = lowestQuantity
+    end
+
+    return quantityToCraft
+end
+
+
+function CraftAlchimisteManager:GetItemForPotionSouvenirFromBank()
+    local NbOrtie = exchange:storageItemQuantity(421)
+    local NbSauge = exchange:storageItemQuantity(428)
+    local quantityToCraft = 0
+    local poidsAvailable = inventory:podsMax() - inventory:pods()
+    local maxQuantityToCraft = poidsAvailable / 30
+    local quantityPerOrtie = math.floor(NbOrtie / 20)
+    local quantityPerSauge = math.floor(NbSauge / 10)
+
+    if quantityPerOrtie >= 1 & quantityPerSauge >= 1 then
+        local lowestQuantity = math.min(quantityPerOrtie, quantityPerSauge)
+        quantityToCraft = lowestQuantity
+        if quantityToCraft > maxQuantityToCraft then
+            quantityToCraft = maxQuantityToCraft
+        end
+    end
+
+    exchange:getItem(421, quantityToCraft * 20)
+    exchange:getItem(428, quantityToCraft * 10)
+end

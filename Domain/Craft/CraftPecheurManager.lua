@@ -30,7 +30,7 @@ function CraftPecheurManager:CraftBeignetGreuvetteAstrub(craftQuantity)
     global:delay(3259)
 end
 
-function CraftPecheurManager:CheckQuantityBeignetGreuvetteInInventory()
+function CraftPecheurManager:CheckQuantityForBeignetGreuvetteInInventory()
     local NbGreuvette = inventory:itemCount(598)
     local quantityToCraft = 0
 
@@ -41,7 +41,7 @@ function CraftPecheurManager:CheckQuantityBeignetGreuvetteInInventory()
     return quantityToCraft
 end
 
-function CraftPecheurManager:CheckQuantityBeignetGreuvetteInBank()
+function CraftPecheurManager:GetItemForBeignetGreuvetteFromBank()
     local NbGreuvette = exchange:storageItemQuantity(598)
     local quantityToCraft = 0
     local podsAvailable = inventory:podsMax() - inventory:pods()
@@ -54,5 +54,5 @@ function CraftPecheurManager:CheckQuantityBeignetGreuvetteInBank()
         end
     end
 
-    return quantityToCraft
+    exchange:getItem(598, quantityToCraft * 2)
 end

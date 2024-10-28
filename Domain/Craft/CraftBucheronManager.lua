@@ -9,7 +9,7 @@ function CraftBucheronManager:new()
     return self
 end
 
-function CraftBucheronManager:CraftPlancheRenforceeAstrub(craftQuantity)
+function CraftBucheronManager:CraftPlancheContreplaqueeAstrub(craftQuantity)
     map:useById(515879, -1)
     global:delay(2148)
     craft:putItem(303, 10)
@@ -27,4 +27,41 @@ function CraftBucheronManager:CraftPlancheRenforceeAstrub(craftQuantity)
     NeedToCraft = false
     NeedToReturnBank = true
     global:delay(3259)
+end
+
+function CraftBucheronManager:CheckQuantityForPlancheContreplaqueeInInventory()
+    local NbFrene = inventory:itemCount(303)
+    local NbChataignier = inventory:itemCount(473)
+    local quantityToCraft = 0
+    local podsAvailable = inventory:podsMax() - inventory:pods()
+    local maxQuantityToCraft = podsAvailable / 100
+
+    if NbFrene > 10 & NbChataignier > 10 then
+        local lowestQuantity = math.min(NbFrene, NbChataignier)
+        quantityToCraft = math.floor(lowestQuantity / 10)
+        if quantityToCraft > maxQuantityToCraft then
+            quantityToCraft = maxQuantityToCraft
+        end
+    end
+
+    return quantityToCraft
+end
+
+function CraftBucheronManager:GetItemForPlancheContreplaqueeFromBank()
+    local NbFrene = exchange:storageItemQuantity(303)
+    local NbChataignier = exchange:storageItemQuantity(473)
+    local quantityToCraft = 0
+    local podsAvailable = math.floor(inventory:podsMax() - inventory:pods() / 2)
+    local maxQuantityToCraft = podsAvailable / 100
+
+    if NbFrene > 10 & NbChataignier > 10 then
+        local lowestQuantity = math.min(NbFrene, NbChataignier)
+        quantityToCraft = math.floor(lowestQuantity / 10)
+        if quantityToCraft > maxQuantityToCraft then
+            quantityToCraft = maxQuantityToCraft
+        end
+    end
+
+    exchange:getItem(303, quantityToCraft * 10)
+    exchange:getItem(473, quantityToCraft * 10)
 end

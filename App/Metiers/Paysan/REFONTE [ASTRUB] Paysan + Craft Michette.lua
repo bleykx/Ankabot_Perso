@@ -1,60 +1,58 @@
-MAX_PODS = 90
+AUTO_DELETE = {}
 GATHER = {}
 MIN_MONSTERS = 1
-MAX_MONSTERS = 1
-OPEN_BAGS = true
-FORCE_MONSTERS = {}
-FORBIDDEN_MONSTERS = {463}
+MAX_MONSTERS = 8
+BOT_BANK = true
 
-dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Bank\\FarmerBotBankManager.lua")
 dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Path\\PathManager.lua")
-dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Path\\GatherPathManager.lua")
-dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Stuff\\StuffManager.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Craft\\CraftPaysanManager.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Bank\\FarmerBotBankManager.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Path\\Metier\\PathPaysanManager.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Enums\\LogEnum.lua")
 
-local BotBank = false
-local Server = character:server()
+local server = character:server()
+local NeedToReturnBank = false
+local quantityToCraft = 0
 
-local FarmerBotBankManager = FarmerBotBankManager:new(BotBank, Server)
 local PathManager = PathManager:new()
-local GatherPathManager = GatherPathManager:new()
-
-local FullPano = false
-local BankMapId = 192415750  -- Astrub
-local BankOutdoorMapId = 191104002
-BotBanque = true
-
-local path = nil
-local lastPath = nil
+local PathPaysanManager = PathPaysanManager:new()
+local CraftPaysanManager = CraftPaysanManager:new()
+local FarmerBotBankManager = FarmerBotBankManager:new(BOT_BANK, server)
+local lastPath = Path:new({}, "", false)
 
 function move()
-    if(path == nil and map:currentMap() ~= "4, -19") then
-        path = PathManager:ReturnAstrub()
+
+    if NeedToReturnBank then
+        PathManager:BankAstrubFromAstrub()
+        FarmerBotBankManager:PoseInventory()
+        NeedToReturnBank = false
     end
-    if (map:currentArea() == "Incarnam") then
-        return PathManager:IncarnamToAstrub()
-    end
-    if (map:currentMap() == "4, -19" or path == nil) then
+
+    local path
+
+    GATHER = {38, 39, 42, 43, 44, 45, 46, 47, 82, 84}
+    path = PathPaysanManager:GatherAllCerealeAstrub()
+
+    if lastPath.Name ~= path.Name then
         lastPath = path
-        path = GatherPathManager:GetRandomAstrubGatherAllPath()
-        while (path == lastPath) do
-            path = GatherPathManager:GetRandomAstrubGatherAllPath()
-        end
-        global:printMessage("[Script] Je commence le trajet " .. path.PathName)
+
+        global:printColor(Info, "Nouveau trajet : " .. path.Name)
     end
 
     return path.Path
 end
 
 function bank()
-    if(map:currentMapId() == BankMapId) then
-        FarmerBotBankManager:PoseInventory()
-        global:printMessage("[Bank] Je vais sortir de la banque")
-        return PathManager:SortirBanqueAstrub()
-    elseif(map:currentMapId() == BankOutdoorMapId) then
-            global:printMessage("[Bank] Je vais rentrer dans la banque")
-            return PathManager:EntrerBanqueAstrub()
+    if job:level(36) < 60 then
+        quantityToCraft = CraftPaysanManager:CheckQuantityForMichetteInInventory()
+        if quantityToCraft > 0 then
+            PathPaysanManager:AtelierPaysanAstrub()
+            CraftPaysanManager:CraftMichetteAstrub(quantityToCraft)
+            NeedToReturnBank = true
+        end
     end
-    return PathManager:BankAstrubFromAstrub()
+    PathManager:BankAstrubFromAstrub()
+    FarmerBotBankManager:PoseInventory()
 end
 
 function phenix()
@@ -66,6 +64,7 @@ function stopped()
 end
 
 function banned()
+    global:printError("Banned")
 end
 
 function mule_lost(bossMapId)

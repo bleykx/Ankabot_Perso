@@ -5,21 +5,18 @@ MAX_MONSTERS = 8
 BOT_BANK = true
 
 dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Path\\PathManager.lua")
-dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Craft\\CraftPecheurManager.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Craft\\CraftAlchimisteManager.lua")
 dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Bank\\FarmerBotBankManager.lua")
-dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Path\\Metier\\PathPecheurManager.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Path\\Metier\\PathAlchimisteManager.lua")
 dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Enums\\LogEnum.lua")
 
 local server = character:server()
-local NbGreuvette = 0
-local NeedToCraft = false
 local NeedToReturnBank = false
-local NeedToSell = false
 local quantityToCraft = 0
 
 local PathManager = PathManager:new()
-local PathPecheurManager = PathPecheurManager:new()
-local CraftPecheurManager = CraftPecheurManager:new()
+local PathAlchimisteManager = PathAlchimisteManager:new()
+local CraftAlchimisteManager = CraftAlchimisteManager:new()
 local FarmerBotBankManager = FarmerBotBankManager:new(BOT_BANK, server)
 local lastPath = Path:new({}, "", false)
 
@@ -33,12 +30,13 @@ function move()
 
     local path
 
-    if (job:level(36) < 10) then -- si pecheur n'est pas lvl 10 alors on focus le trajet GOUJON
-        GATHER = {75, 84}
-        path = PathPecheurManager:GatherGoujonAstrub()
-    else
-        GATHER = {71, 74, 75, 76, 77, 78, 79, 84}
-        path = PathPecheurManager:GatherAllPoisonAstrub()
+    -- Définition du chemin à suivre en fonction du niveau du métier Alchimiste
+    if (job:level(26) < 20) then
+        GATHER = {254, 255, 1, 8, 28, 29, 30, 31, 32, 33, 34, 35, 39, 42, 43, 44, 45, 46, 47, 61, 66, 67, 68, 74, 76, 77, 78, 79, 80, 81, 98, 99, 101, 108,109, 110, 111, 112}
+        return PathAlchimisteManager:GatherOrtieAstrub()
+    elseif (job:level(26) >= 20) then
+        GATHER = {254, 255, 1, 8, 28, 29, 30, 31, 32, 33, 34, 35, 39, 42, 43, 44, 45, 46, 47, 61, 66, 67, 68, 74, 76, 77, 78, 79, 80, 81, 98, 99, 101, 108,109, 110, 111, 112}
+        return PathAlchimisteManager:GatherOrtieAndSaugeAstrub()
     end
 
     if lastPath.Name ~= path.Name then
@@ -52,10 +50,10 @@ end
 
 function bank()
     if job:level(36) < 60 then
-        quantityToCraft = CraftPecheurManager:CheckQuantityForBeignetGreuvetteInInventory()
+        quantityToCraft = CraftAlchimisteManager:CheckQuantityForPotionSouvenirInInventory()
         if quantityToCraft > 0 then
-            PathPecheurManager:AtelierPecheurAstrub()
-            CraftPecheurManager:CraftBeignetGreuvetteAstrub(quantityToCraft)
+            PathAlchimisteManager:AtelierAlchimisteAstrub()
+            CraftAlchimisteManager:CraftPotionSouvenirAstrub(quantityToCraft)
             NeedToReturnBank = true
         end
     end
