@@ -1,7 +1,7 @@
 CraftAlchimisteManager = {}
 
 dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Enums\\LogEnum.lua")
-dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Path\\HumanityManager.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Bots\\HumanityManager.lua")
 
 function CraftAlchimisteManager:new()
     local self = {}
@@ -34,7 +34,7 @@ function CraftAlchimisteManager:CheckQuantityForPotionSouvenirInInventory()
     local quantityPerOrtie = math.floor(NbOrtie / 20)
     local quantityPerSauge = math.floor(NbSauge / 10)
 
-    if quantityPerOrtie >= 1 & quantityPerSauge >= 1 then
+    if quantityPerOrtie >= 1 and quantityPerSauge >= 1 then
         local lowestQuantity = math.min(quantityPerOrtie, quantityPerSauge)
         quantityToCraft = lowestQuantity
     end
@@ -52,7 +52,7 @@ function CraftAlchimisteManager:GetItemForPotionSouvenirFromBank()
     local quantityPerOrtie = math.floor(NbOrtie / 20)
     local quantityPerSauge = math.floor(NbSauge / 10)
 
-    if quantityPerOrtie >= 1 & quantityPerSauge >= 1 then
+    if quantityPerOrtie >= 1 and quantityPerSauge >= 1 then
         local lowestQuantity = math.min(quantityPerOrtie, quantityPerSauge)
         quantityToCraft = lowestQuantity
         if quantityToCraft > maxQuantityToCraft then

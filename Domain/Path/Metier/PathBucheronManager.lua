@@ -13,6 +13,8 @@ end
 
 function PathBucheronManager:GatherBoisAstrub()
 	local path = {
+		{map = "192415750", path="409"},
+		{map = "4,-18", path="top"},
         {map = "5,-18", path = "top"}, --map zaap astrub
         {map = "5,-19", path = "left"}, --map zaap astrub
 		{map = "-2,-20", path = "right"},
@@ -157,7 +159,7 @@ function PathBucheronManager:GatherBoisAstrub()
 		{map = "4,-22", path = "right"},
 		{map = "5,-22", path = "bottom"},
 	}
-
+	
     return Path:new(path, "GatherBoisAstrub", true)
 end
 

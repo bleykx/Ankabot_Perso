@@ -13,6 +13,8 @@ end
 
 function PathAlchimisteManager:GatherOrtieAstrub()
     return {
+        {map = "192415750", path="409"},
+		{map = "4,-18", path="top"},
         {map = "5,-18", path = "top", gather = false, fight = false},
         {map = "5,-19", path = "left", gather = false, fight = false},
         {map = "4,-19", path = "left", gather = true, fight = false},
@@ -162,6 +164,8 @@ end
 
 function PathAlchimisteManager:GatherOrtieAndSaugeAstrub()
     return {
+        {map = "192415750", path="409"},
+		{map = "4,-18", path="top"},
         {map = "5,-18", path = "top", gather = false, fight = false},
         {map = "5,-19", path = "left", gather = false, fight = false},
         {map = "4,-19", path = "left", gather = true, fight = false},

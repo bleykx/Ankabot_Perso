@@ -13,6 +13,8 @@ end
 
 function PathPecheurManager:GatherAllPoisonAstrub()
     local path = {
+        {map = "192415750", path="409"},
+		{map = "4,-18", path="top"},
         { map = "4,-19", path = "top", gather = false, fight = false },  
         { map = "4,-20", path = "top", gather = true, fight = false },  
         { map = "4,-21", path = "top", gather = false, fight = false },  

@@ -36,7 +36,7 @@ function CraftBucheronManager:CheckQuantityForPlancheContreplaqueeInInventory()
     local podsAvailable = inventory:podsMax() - inventory:pods()
     local maxQuantityToCraft = podsAvailable / 100
 
-    if NbFrene > 10 & NbChataignier > 10 then
+    if (NbFrene > 10 and NbChataignier > 10) then
         local lowestQuantity = math.min(NbFrene, NbChataignier)
         quantityToCraft = math.floor(lowestQuantity / 10)
         if quantityToCraft > maxQuantityToCraft then
@@ -54,7 +54,7 @@ function CraftBucheronManager:GetItemForPlancheContreplaqueeFromBank()
     local podsAvailable = math.floor(inventory:podsMax() - inventory:pods() / 2)
     local maxQuantityToCraft = podsAvailable / 100
 
-    if NbFrene > 10 & NbChataignier > 10 then
+    if (NbFrene > 10 and NbChataignier > 10) then
         local lowestQuantity = math.min(NbFrene, NbChataignier)
         quantityToCraft = math.floor(lowestQuantity / 10)
         if quantityToCraft > maxQuantityToCraft then

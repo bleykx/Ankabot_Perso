@@ -4,9 +4,11 @@ function BotsInfos:new()
     local object = {}
 
     object.bankBots = {
-        { server = "Imagiro", botId = 689242702115},
-        { server = "Tally", botId = 0},
-        { server = "Zag", botId = 1308950831 }
+        { server = "Imagiro", botId = 689242702115 },
+        { server = "Orukam", botId = 1016646009124 },
+        { server = "Tal Kasha", botId = 830878318882 },
+        { server = "Hell Mina", botId = 581563842854 },
+        { server = "Tylezia", botId = 848954065189 }
     }
 
     setmetatable(object, self)

@@ -13,6 +13,8 @@ end
 
 function PathPaysanManager:GatherAllCerealeAstrub()
     local path = {
+        {map = "192415750", path="409"},
+		{map = "4,-18", path="top"},
         { map = "192937992", path = "424"}, -- map interieur atelier paysan vers porte
         { map = "4,-19", path = "top", gather = false, fight = false },  
         { map = "4,-20", path = "top", gather = false, fight = false },  
