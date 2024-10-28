@@ -7,15 +7,24 @@ function CraftPathManager:new()
     return object
 end
 
-function CraftPathManager:AtelierAlchiFromBankAstrub()
-    return {
-        {map = "191104002", path = "top"}, -- Map extérieure de la banque d'Astrub
-        {map = "4,-19", path = "top"},
-        {map = "4,-20", path = "top"},
-        {map = "4,-21", path = "left"},
-        {map = "188744705", door = "412"}, -- Map extérieure Atelier Alchimiste Astrub
-        {map = "192937988", custom = ProcessCraft}, -- Map intérieur Atelier Alchimiste Astrub
-    }
+function CraftPathManager:AtelierPaysanAstrub()
+    map:moveToward(192939008)
+end
+
+function CraftPathManager:AtelierChasseurAstrub()
+    map:moveToward(192937994)
+end
+
+function CraftPathManager:AtelierPecheurAstrub()
+    map:moveToward(192937984)
+end
+
+function CraftPathManager:AtelierBucheronAstrub()
+    map:moveToward(192940042)
+end
+
+function CraftPathManager:AtelierAlchimisteAstrub()
+    map:moveToward(192937988)
 end
 
 function CraftPathManager:BankAstrubFromAtelierAlchi()
@@ -28,4 +37,3 @@ function CraftPathManager:BankAstrubFromAtelierAlchi()
         {map = "192415750", custom = ProcessBank}, -- Dépôt de l'inventaire et sortie de la banque
     }
 end
-

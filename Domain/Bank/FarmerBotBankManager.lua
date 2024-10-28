@@ -6,7 +6,7 @@ function FarmerBotBankManager:new(botBank, server)
 
     local object = {}
     object.BotBank = botBank
-    object.BotInfos = BotsInfos:New()
+    object.BotInfos = BotsInfos:new()
     object.Server = server
 
     setmetatable(object, self)
@@ -31,8 +31,9 @@ function FarmerBotBankManager:ToNPCBank()
 end
 
 function FarmerBotBankManager:ToBotBank()
-    local id_banquier = self.BotInfos:GetBankerIds(self.Server)
-
+    global:printMessage("Server : " .. self.Server)
+    local id_banquier = self.BotInfos:GetBankBotIds(self.Server)
+    global:printMessage("id_banquier : " .. id_banquier)
     exchange:launchExchangeWithPlayer(id_banquier) -- La fonction pour lancer l'échange
     exchange:putAllItems() -- La fonction pour déposer tous les objets de l'inventaire
     exchange:putKamas(0) -- La fonction pour déposer tous les kamas

@@ -14,10 +14,11 @@ function FighterBotBankManager:new(botBank)
 end
 
 function FighterBotBankManager:PoseInventory()
+    global:printMessage("PoseInventory")
     if self.BotBank then
-        self.luBank()
+        self:luBank()
     else
-        self.NPCBank()
+        self:NPCBank()
     end
 end
 

@@ -8,7 +8,7 @@ Path = {}
 function Path:new(Path, PathName, InProgress)
     local object = {}
     object.Path = Path
-    object.PathName = PathName
+    object.Name = PathName
     object.InProgress = InProgress
 
     setmetatable(object, self)

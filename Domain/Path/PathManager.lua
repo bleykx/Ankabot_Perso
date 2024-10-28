@@ -1,7 +1,10 @@
 PathManager = {}
 
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Models\\Path.lua")
+dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Enums\\LogEnum.lua")
+
+
 function PathManager:new()
-    dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Models\\Path.lua")
 
     local object = {}
     setmetatable(object, self)
@@ -10,6 +13,7 @@ function PathManager:new()
 end
 
 function PathManager:IncarnamToAstrub()
+
     return{
         -- nord d'incarnam
         {map = "-3,-6", path = "right"},
@@ -74,15 +78,16 @@ function PathManager:IncarnamToAstrub()
     }
 end
 
+function PathManager:AtrubToIncarnam()
+    
+end
+
 function PathManager:ReturnAstrub()
     map:moveToward(191104000)
 end
 
 function PathManager:BankAstrubFromAstrub()
-    if(map:currentMapId() == 191104002 ) then
-        return self:EntrerBanqueAstrub()
-    end
-    return map:moveToward(191104002) -- map exte banque astrub
+    return map:moveToward(192415750)
 end
 
 function PathManager:FarmRouteDesAmes()

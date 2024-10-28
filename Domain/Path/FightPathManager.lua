@@ -1,6 +1,8 @@
 FightPathManager = {}
 
 function FightPathManager:new()
+    dofile("C:\\ANKABOT\\Ankabot_Perso\\Domain\\Models\\Path.lua")
+
     local object = {}
     setmetatable(object, self)
     self.__index = self
