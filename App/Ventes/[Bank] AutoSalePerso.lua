@@ -54,7 +54,7 @@ CoefPrixMini = 0.7;
 CoefLotSansPrix = 13;
 
 -- Nombre de lot maximum en vente
-MaxNbLot = 10;
+MaxNbLot = 5;
 
 -- Taille des lots mis en vente
 LotSize = 100;
@@ -66,24 +66,24 @@ DelayTime = 5;
 -- CONFIG HDV RESSOURCE
 
 -- ID de la Map de l'HDV Ressource
-IdMapHDVRessource = 54172456;
+IdMapHDVRessource = 191104004;
 
 -- ID HDV Ressource
-IdElementNpcHDVRessource =  515278;
+IdElementNpcHDVRessource = 515220;
 
 
 -- CONFIG BANQUE
 
 -- ID de la Map de l'intérieur de la Banque
-IdMapInterieurBanque = 54534165;
+IdMapInterieurBanque = 192415750;
 
 -- ID de la Map de l'extérieur de la Banque
-IdMapExterieurBanque = 54172457;
+IdMapExterieurBanque = 191104002;
 
 -- ID de la Porte de la Banque
-IdPorteInterieurBanque = 424;
+IdPorteInterieurBanque = 409;
 
-IdPorteExterieurBanque = 358;
+IdPorteExterieurBanque = 288;
 
 
 -- CONFIG MAISON
