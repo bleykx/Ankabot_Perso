@@ -49,14 +49,13 @@ function move()
 end
 
 function bank()
-    if job:level(36) < 60 then
-        quantityToCraft = CraftAlchimisteManager:CheckQuantityForPotionSouvenirInInventory()
-        if quantityToCraft > 0 then
-            PathAlchimisteManager:AtelierAlchimisteAstrub()
-            CraftAlchimisteManager:CraftPotionSouvenirAstrub(quantityToCraft)
-            NeedToReturnBank = true
-        end
+    quantityToCraft = CraftAlchimisteManager:CheckQuantityForPotionSouvenirInInventory()
+    if quantityToCraft > 0 then
+        PathAlchimisteManager:AtelierAlchimisteAstrub()
+        CraftAlchimisteManager:CraftPotionSouvenirAstrub(quantityToCraft)
+        NeedToReturnBank = true
     end
+
     PathManager:BankAstrubFromAstrub()
     FarmerBotBankManager:PoseInventory()
 end

@@ -43,14 +43,13 @@ function move()
 end
 
 function bank()
-    if job:level(36) < 60 then
-        quantityToCraft = CraftPaysanManager:CheckQuantityForMichetteInInventory()
-        if quantityToCraft > 0 then
-            PathPaysanManager:AtelierPaysanAstrub()
-            CraftPaysanManager:CraftMichetteAstrub(quantityToCraft)
-            NeedToReturnBank = true
-        end
+    quantityToCraft = CraftPaysanManager:CheckQuantityForMichetteInInventory()
+    if quantityToCraft > 0 then
+        PathPaysanManager:AtelierPaysanAstrub()
+        CraftPaysanManager:CraftMichetteAstrub(quantityToCraft)
+        NeedToReturnBank = true
     end
+
     PathManager:BankAstrubFromAstrub()
     FarmerBotBankManager:PoseInventory()
 end

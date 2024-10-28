@@ -32,7 +32,7 @@ function move()
 
     GATHER =  {1, 8, 33, 84}
     path = PathBucheronManager:GatherBoisAstrub()
-
+    PathBucheronManager:
     if lastPath.Name ~= path.Name then
         lastPath = path
 
@@ -43,14 +43,13 @@ function move()
 end
 
 function bank()
-    if job:level(36) < 60 then
-        quantityToCraft = CraftBucheronManager:CheckQuantityForPlancheContreplaqueeInInventory()
-        if quantityToCraft > 0 then
-            PathBucheronManager:AtelierBucheronAstrub()
-            CraftBucheronManager:CraftPlancheContreplaqueeAstrub(quantityToCraft)
-            NeedToReturnBank = true
-        end
+    quantityToCraft = CraftBucheronManager:CheckQuantityForPlancheContreplaqueeInInventory()
+    if quantityToCraft > 0 then
+        PathBucheronManager:AtelierBucheronAstrub()
+        CraftBucheronManager:CraftPlancheContreplaqueeAstrub(quantityToCraft)
+        NeedToReturnBank = true
     end
+    
     PathManager:BankAstrubFromAstrub()
     FarmerBotBankManager:PoseInventory()
 end
